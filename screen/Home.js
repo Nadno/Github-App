@@ -52,7 +52,9 @@ const Home = () => {
       <FlatList
         style={styles.userList}
         data={users}
-        renderItem={({ item: user }) => <GithubUser user={user} />}
+        renderItem={({ item: user, index }) => (
+          <GithubUser user={user} count={index + 1} />
+        )}
       />
     </View>
   );
