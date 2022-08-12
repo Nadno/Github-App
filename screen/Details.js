@@ -9,14 +9,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-const Repository = ({ repo, style }) => {
-  return (
-    <View style={style}>
-      <Text>Name: {repo.name}</Text>
-      <Text>Description: {repo.description}</Text>
-    </View>
-  );
-};
+import Repository from '../components/GithubRepository';
 
 const Details = ({ route }) => {
   const { name, avatar, reposUrl, followersUrl, followingUrl } =
@@ -35,11 +28,20 @@ const Details = ({ route }) => {
       let repos = await fetch(reposUrl).then(res => res.json());
 
       repos = repos.map(
-        ({ name, description, stargazers_count, watchers_count }) => ({
+        ({
+          name,
+          description = '',
+          visibility,
+          stargazers_count,
+          topics,
+          updated_at,
+        }) => ({
           name,
           description,
-          starts: stargazers_count,
-          watchers: watchers_count,
+          visibility,
+          topics,
+          stars: stargazers_count,
+          updatedAt: updated_at,
         })
       );
 
@@ -99,9 +101,7 @@ const Details = ({ route }) => {
             <FlatList
               style={styles.repoList}
               data={data.repos}
-              renderItem={({ item }) => (
-                <Repository repo={item} style={styles.repoListItem} />
-              )}
+              renderItem={({ item }) => <Repository repo={item} />}
             />
           )}
         </View>
