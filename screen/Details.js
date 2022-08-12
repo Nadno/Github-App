@@ -5,8 +5,8 @@ import {
   ActivityIndicator,
   Image,
   FlatList,
-  ScrollView,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 
 const Repository = ({ repo, style }) => {
@@ -65,35 +65,34 @@ const Details = ({ route }) => {
   }, [followingUrl]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.user}>
-        <Image style={styles.userImage} source={{ uri: avatar }} />
+    <SafeAreaView>
+      <View style={styles.container}>
+        <View style={styles.user}>
+          <Image style={styles.userImage} source={{ uri: avatar }} />
 
-        <View>
-          <Text style={styles.userLogin}>{name}</Text>
-          <Text style={styles.userFollow}>
-            Followers:{' '}
-            {isLoading.followers ? (
-              <ActivityIndicator color="#111" />
-            ) : (
-              data.followers
-            )}
-          </Text>
-          <Text style={styles.userFollow}>
-            Following:{' '}
-            {isLoading.following ? (
-              <ActivityIndicator color="#111" />
-            ) : (
-              data.following
-            )}
-          </Text>
+          <View>
+            <Text style={styles.userLogin}>{name}</Text>
+            <Text style={styles.userFollow}>
+              Followers:{' '}
+              {isLoading.followers ? (
+                <ActivityIndicator color="#111" />
+              ) : (
+                data.followers
+              )}
+            </Text>
+            <Text style={styles.userFollow}>
+              Following:{' '}
+              {isLoading.following ? (
+                <ActivityIndicator color="#111" />
+              ) : (
+                data.following
+              )}
+            </Text>
+          </View>
         </View>
-      </View>
 
-      <ScrollView>
         <View style={styles.repoListContainer}>
           <Text>Repos:</Text>
-
           {isLoading.repos ? (
             <ActivityIndicator size="large" color="#111" />
           ) : (
@@ -106,8 +105,8 @@ const Details = ({ route }) => {
             />
           )}
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
